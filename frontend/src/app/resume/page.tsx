@@ -100,33 +100,29 @@ export default function ResumePage() {
   };
 
   return (
-    <div className="space-y-7 pb-12 animate-fade-in-up">
-      {/* Header */}
+    <div className="page-shell animate-fade-in-up">
       <div>
-        <p className="section-label mb-1">ATS & Keyword Review</p>
-        <h1 className="text-2xl font-bold tracking-tight">
+        <p className="page-eyebrow">ATS & Keyword Review</p>
+        <h1 className="page-title">
           Resume{" "}
           <span className="bg-gradient-to-r from-neon-cyan to-neon-indigo bg-clip-text text-transparent">
             Analyzer
           </span>
         </h1>
-        <p className="text-sm text-gray-400 mt-1">
+        <p className="page-subtitle">
           Optimize your resume for ATS systems and increase target role match rates
         </p>
       </div>
 
       <div className="resume-grid-split">
-        {/* Upload Column */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-          
-          {/* Uploader Box */}
-          <div className="glass-card p-6 border border-white/5 space-y-4">
+        <div className="element-gap">
+          <div className="glass-card card-body-lg element-gap">
             <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
               <FileText className="w-4 h-4 text-neon-cyan" />
               Upload Resume
             </h3>
             
-            <form onSubmit={handleUpload} className="space-y-4">
+            <form onSubmit={handleUpload} className="element-gap">
               <div className="relative border-2 border-dashed border-white/10 hover:border-neon-cyan/40 rounded-xl p-8 flex flex-col items-center justify-center gap-3 bg-white/[0.01] transition-all cursor-pointer group">
                 <input
                   type="file"
@@ -175,7 +171,7 @@ export default function ResumePage() {
 
           {/* History Logger */}
           {history.length > 0 && (
-            <div className="glass-card p-6 border border-white/5 space-y-4">
+            <div className="glass-card card-body-lg element-gap">
               <h3 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
                 <Clock className="w-4 h-4 text-neon-purple" />
                 Audit Log History
@@ -205,16 +201,13 @@ export default function ResumePage() {
 
         </div>
 
-        {/* Audit Results (Right Side, span 2) */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+        <div className="element-gap">
           
           {results ? (
             <>
               {/* ATS Circle Gauge & Strengths/Weaknesses Split */}
-              <div className="responsive-grid-3" style={{ gap: "1.5rem" }}>
-                
-                {/* ATS Circle */}
-                <div className="glass-card p-6 border border-white/5 flex flex-col items-center justify-center text-center">
+              <div className="responsive-grid-3">
+                <div className="glass-card card-body-lg flex flex-col items-center justify-center text-center">
                   <p className="text-xs text-gray-400 font-semibold uppercase tracking-wider">Overall ATS Score</p>
                   
                   <div className="relative w-36 h-36 flex items-center justify-center mt-4">
@@ -243,9 +236,8 @@ export default function ResumePage() {
                   </div>
                 </div>
 
-                {/* Core Pros/Cons */}
-                <div className="glass-card border border-white/5 responsive-grid-2" style={{ padding: "1.5rem", gap: "1rem" }}>
-                    <div className="responsive-grid-2" style={{ gap: "1rem" }}>
+                <div className="glass-card card-body-lg responsive-grid-2">
+                    <div className="responsive-grid-2">
                     
                     {/* Strengths */}
                     <div className="space-y-2">
@@ -284,7 +276,7 @@ export default function ResumePage() {
 
               {/* Recommended Keywords to add */}
               {results.keyword_recommendations && results.keyword_recommendations.length > 0 && (
-                <div className="glass-card p-6 border border-white/5 space-y-3">
+                <div className="glass-card card-body-lg element-gap">
                   <h4 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
                     <BookOpen className="w-4 h-4 text-neon-indigo" />
                     Recommended Keywords to Inject
@@ -307,19 +299,19 @@ export default function ResumePage() {
 
               {/* Rewrite Comparisons */}
               {results.rewrite_suggestions && results.rewrite_suggestions.length > 0 && (
-                <div className="glass-card p-6 border border-white/5 space-y-4">
+                <div className="glass-card card-body-lg element-gap">
                   <h4 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
                     <TrendingUp className="w-4 h-4 text-neon-purple" />
                     Quantified Bullet-Point Rewrites
                   </h4>
 
-                  <div className="space-y-4">
+                  <div className="element-gap">
                     {results.rewrite_suggestions.map((sug, idx) => (
-                      <div 
+                      <div
                         key={idx}
-                        className="p-4 rounded-xl border border-white/5 bg-white/[0.01] space-y-3"
+                        className="card-body rounded-xl border border-white/5 bg-white/[0.01] element-gap"
                       >
-                        <div className="responsive-grid-2" style={{ gap: "1rem" }}>
+                        <div className="responsive-grid-2">
                           {/* Original line */}
                           <div className="space-y-1">
                             <span className="text-[10px] font-bold text-red-400 uppercase tracking-widest block">Original (Weak)</span>
@@ -351,7 +343,7 @@ export default function ResumePage() {
             </>
           ) : (
             /* Empty audit state */
-            <div className="text-center py-20 glass-card border border-white/5 space-y-4">
+            <div className="empty-state glass-card">
               <FileText className="w-16 h-16 text-gray-600 mx-auto" />
               <h3 className="text-lg font-bold text-white">No Resume Audit Active</h3>
               <p className="text-sm text-gray-400 max-w-sm mx-auto">

@@ -113,8 +113,8 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <div className="w-10 h-10 border-[3px] border-neon-cyan border-t-transparent rounded-full animate-spin" />
+      <div className="page-loading">
+        <div className="page-loading-spinner" />
       </div>
     );
   }
@@ -128,12 +128,12 @@ export default function DashboardPage() {
   ];
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1.75rem" }} className="animate-fade-in-up">
+    <div className="page-shell animate-fade-in-up">
       {/* ── Page header ── */}
-      <div className="responsive-flex-header" style={{ alignItems: "flex-end", gap: "0.75rem", flexWrap: "wrap" }}>
+      <div className="page-header">
         <div>
-          <p className="section-label" style={{ marginBottom: 4 }}>Career Overview</p>
-          <h1 style={{ fontSize: "1.75rem", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.2 }}>
+          <p className="page-eyebrow">Career Overview</p>
+          <h1 className="page-title">
             Hi,{" "}
             <span
               style={{
@@ -146,7 +146,7 @@ export default function DashboardPage() {
             </span>{" "}
             👋
           </h1>
-          <p style={{ fontSize: "0.875rem", color: "#9ca3af", marginTop: 6, lineHeight: 1.5 }}>
+          <p className="page-subtitle">
             {data?.target_role
               ? `Tracking your journey to becoming an expert ${data.target_role}`
               : "Set your career direction to generate a personalised roadmap"}
@@ -155,8 +155,8 @@ export default function DashboardPage() {
         {!showSetup && (
           <button
             onClick={() => setIsEditing(true)}
-            className="glass-btn-secondary"
-            style={{ padding: "0.5rem 1rem", gap: "0.5rem", fontSize: "0.75rem", flexShrink: 0 }}
+            className="glass-btn-secondary shrink-0"
+            style={{ padding: "0.5rem 1rem", gap: "0.5rem", fontSize: "0.75rem" }}
           >
             <Edit2 style={{ width: 14, height: 14 }} />
             Edit Goal
@@ -164,16 +164,11 @@ export default function DashboardPage() {
         )}
       </div>
 
-      {/* Error banner */}
-      {error && (
-        <div style={{ padding: "0.75rem 1rem", borderRadius: "0.75rem", background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.2)", color: "#f87171", fontSize: "0.875rem" }}>
-          {error}
-        </div>
-      )}
+      {error && <div className="alert alert-error">{error}</div>}
 
       {showSetup ? (
         /* ── Onboarding form ── */
-        <div className="glass-card-glow-indigo" style={{ padding: "2rem", display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+        <div className="glass-card-glow-indigo card-body-lg element-gap">
           <div style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem" }}>
             <div
               style={{
@@ -197,7 +192,7 @@ export default function DashboardPage() {
 
           <div className="divider" />
 
-          <form onSubmit={handleSaveProfile} style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+          <form onSubmit={handleSaveProfile} className="element-gap">
             <div className="responsive-grid-2">
               <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                 <label className="section-label">Target Role</label>
@@ -282,7 +277,7 @@ export default function DashboardPage() {
           {/* ── Metric cards row ── */}
           <div className="responsive-grid-4">
             {/* Readiness */}
-            <div className="glass-card" style={{ padding: "1.25rem", display: "flex", flexDirection: "column", justifyContent: "space-between", gap: "1rem", minHeight: 156, position: "relative", overflow: "hidden" }}>
+            <div className="glass-card card-body" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", gap: "1rem", minHeight: 140, position: "relative", overflow: "hidden" }}>
               <div style={{ position: "absolute", top: -12, right: -12, width: 80, height: 80, background: "rgba(0,242,254,0.06)", filter: "blur(32px)", borderRadius: "50%", pointerEvents: "none" }} />
               <div>
                 <p className="section-label">Readiness Score</p>
@@ -309,7 +304,7 @@ export default function DashboardPage() {
             </div>
 
             {/* Streak */}
-            <div className="glass-card" style={{ padding: "1.25rem", display: "flex", flexDirection: "column", justifyContent: "space-between", gap: "1rem", minHeight: 156, position: "relative", overflow: "hidden" }}>
+            <div className="glass-card card-body" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", gap: "1rem", minHeight: 140, position: "relative", overflow: "hidden" }}>
               <div style={{ position: "absolute", top: -12, right: -12, width: 80, height: 80, background: "rgba(139,92,246,0.06)", filter: "blur(32px)", borderRadius: "50%", pointerEvents: "none" }} />
               <div>
                 <p className="section-label">Learning Streak</p>
@@ -324,7 +319,7 @@ export default function DashboardPage() {
             </div>
 
             {/* Roadmap */}
-            <div className="glass-card" style={{ padding: "1.25rem", display: "flex", flexDirection: "column", justifyContent: "space-between", gap: "1rem", minHeight: 156, position: "relative", overflow: "hidden" }}>
+            <div className="glass-card card-body" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", gap: "1rem", minHeight: 140, position: "relative", overflow: "hidden" }}>
               <div style={{ position: "absolute", top: -12, right: -12, width: 80, height: 80, background: "rgba(99,102,241,0.06)", filter: "blur(32px)", borderRadius: "50%", pointerEvents: "none" }} />
               <div>
                 <p className="section-label">Roadmap Progress</p>
@@ -350,7 +345,7 @@ export default function DashboardPage() {
             </div>
 
             {/* Active goal */}
-            <div className="glass-card" style={{ padding: "1.25rem", display: "flex", flexDirection: "column", justifyContent: "space-between", gap: "1rem", minHeight: 156, position: "relative", overflow: "hidden" }}>
+            <div className="glass-card card-body" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", gap: "1rem", minHeight: 140, position: "relative", overflow: "hidden" }}>
               <div>
                 <p className="section-label">Active Goal</p>
                 <p style={{ marginTop: 10, fontSize: "0.875rem", fontWeight: 600, color: "#fff", lineHeight: 1.5, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
@@ -369,7 +364,7 @@ export default function DashboardPage() {
           {/* ── Radar + Tasks grid ── */}
           <div className="dashboard-grid-split">
             {/* Radar card */}
-            <div className="glass-card" style={{ padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+            <div className="glass-card card-body-lg element-gap">
               <div>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 2 }}>
                   <Brain style={{ width: 16, height: 16, color: "#00f2fe" }} />
@@ -427,7 +422,7 @@ export default function DashboardPage() {
             </div>
 
             {/* Upcoming tasks card */}
-            <div className="glass-card" style={{ padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+            <div className="glass-card card-body-lg element-gap">
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <div>
                   <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 2 }}>

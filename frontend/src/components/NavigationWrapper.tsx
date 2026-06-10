@@ -43,6 +43,8 @@ export default function NavigationWrapper({
   const isAuthPage =
     pathname === "/login" || pathname === "/register" || pathname === "/";
 
+  const isCoachPage = pathname === "/coach";
+
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -89,7 +91,7 @@ export default function NavigationWrapper({
   const SIDEBAR_W = 240;
 
   return (
-    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "row", background: "#07060b" }}>
+    <div style={{ minHeight: "100dvh", height: "100dvh", display: "flex", flexDirection: "row", background: "#07060b", overflow: "hidden" }}>
 
       {/* ── Desktop sidebar ── */}
       {!isMobile && (
@@ -180,11 +182,7 @@ export default function NavigationWrapper({
                     }}
                   >
                     <Icon
-                      style={{
-                        width: 18, height: 18, flexShrink: 0,
-                        color: active ? "#00f2fe" : "currentColor",
-                        transition: "color 0.2s",
-                      }}
+                      className={`w-[18px] h-[18px] shrink-0 transition-colors ${active ? "text-neon-cyan" : "text-current"}`}
                     />
                     <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                       {item.name}
@@ -303,7 +301,7 @@ export default function NavigationWrapper({
                       : { background: "transparent", border: "1px solid transparent", color: "#9ca3af" }),
                   }}
                 >
-                  <Icon style={{ width: 18, height: 18, flexShrink: 0, color: active ? "#00f2fe" : "currentColor" }} />
+                  <Icon className={`w-[18px] h-[18px] shrink-0 ${active ? "text-neon-cyan" : "text-current"}`} />
                   <span>{item.name}</span>
                 </Link>
               );
@@ -326,20 +324,8 @@ export default function NavigationWrapper({
       )}
 
       {/* ── Page content ── */}
-      <main
-        style={{
-          flex: 1, minWidth: 0, overflowY: "auto",
-          paddingTop: isMobile ? 56 : 0,
-        }}
-      >
-        <div
-          style={{
-            width: "100%",
-            maxWidth: 1100,
-            margin: "0 auto",
-            padding: "2.5rem 2rem",
-          }}
-        >
+      <main className={`app-main${isMobile ? " app-main--mobile" : ""}${isCoachPage ? " app-main--coach" : ""}`}>
+        <div className={`app-shell-content${isCoachPage ? " app-shell-content--coach" : ""}`}>
           {children}
         </div>
       </main>

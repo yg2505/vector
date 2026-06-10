@@ -81,8 +81,8 @@ export default function RoadmapPage() {
 
   if (loading) {
     return (
-      <div className="min-h-[70vh] flex items-center justify-center">
-        <div className="w-12 h-12 border-4 border-neon-cyan border-t-transparent rounded-full animate-spin"></div>
+      <div className="page-loading">
+        <div className="page-loading-spinner" />
       </div>
     );
   }
@@ -102,46 +102,35 @@ export default function RoadmapPage() {
   });
 
   return (
-    <div className="space-y-7 pb-12 animate-fade-in-up">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+    <div className="page-shell animate-fade-in-up">
+      <div className="page-header">
         <div>
-          <p className="section-label mb-1">Weekly Milestones</p>
-          <h1 className="text-2xl font-bold tracking-tight">
+          <p className="page-eyebrow">Weekly Milestones</p>
+          <h1 className="page-title">
             Learning{" "}
             <span className="bg-gradient-to-r from-neon-cyan to-neon-indigo bg-clip-text text-transparent">
               Roadmap
             </span>
           </h1>
-          <p className="text-sm text-gray-400 mt-1">
+          <p className="page-subtitle">
             Follow your structured week-by-week milestones to reach your goal
           </p>
         </div>
         <button
           onClick={handleRegenerate}
           disabled={regenerating}
-          className="glass-btn gap-2 text-sm disabled:opacity-60 self-start sm:self-auto shrink-0"
+          className="glass-btn gap-2 text-sm disabled:opacity-60 shrink-0 self-start md:self-auto"
         >
           <Sparkles className={`w-4 h-4 ${regenerating ? "animate-spin" : ""}`} />
           {regenerating ? "Regenerating..." : "Regenerate Roadmap"}
         </button>
       </div>
 
-      {error && (
-        <div className="p-4 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
-          {error}
-        </div>
-      )}
+      {error && <div className="alert alert-error">{error}</div>}
+      {success && <div className="alert alert-success">{success}</div>}
 
-      {success && (
-        <div className="p-4 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm">
-          {success}
-        </div>
-      )}
-
-      {/* Progress Card */}
       {tasks.length > 0 && (
-        <div className="glass-card p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+        <div className="glass-card card-body flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-neon-cyan/10 border border-neon-cyan/20 flex items-center justify-center shrink-0">
               <Map className="w-4 h-4 text-neon-cyan" />
@@ -167,7 +156,7 @@ export default function RoadmapPage() {
 
       {/* Timeline View */}
       {tasks.length > 0 ? (
-        <div className="space-y-10 relative before:absolute before:left-6 before:top-2 before:bottom-2 before:w-[2px] before:bg-white/5">
+        <div className="section-gap relative before:absolute before:left-6 before:top-2 before:bottom-2 before:w-[2px] before:bg-white/5">
           {Object.keys(groupedTasks).map((monthStr) => {
             const monthNum = Number(monthStr);
             return (
@@ -199,9 +188,9 @@ export default function RoadmapPage() {
                     }
 
                     return (
-                      <div 
+                      <div
                         key={task.id}
-                        className={`glass-card p-5 border transition-all duration-300 relative ${
+                        className={`glass-card card-body border transition-all duration-300 relative ${
                           isCompleted 
                             ? "bg-emerald-500/5 border-emerald-500/25 text-gray-400" 
                             : "border-white/5 hover:border-neon-cyan/20"
@@ -306,7 +295,7 @@ export default function RoadmapPage() {
         </div>
       ) : (
         /* Empty State */
-        <div className="text-center py-16 glass-card border border-white/5 space-y-4 max-w-xl mx-auto">
+        <div className="empty-state glass-card max-w-xl mx-auto w-full">
           <AlertCircle className="w-12 h-12 text-gray-600 mx-auto" />
           <h3 className="text-lg font-bold text-white">No Active Roadmap</h3>
           <p className="text-sm text-gray-400">

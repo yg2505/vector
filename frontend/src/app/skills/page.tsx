@@ -85,8 +85,8 @@ export default function SkillsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-[70vh] flex items-center justify-center">
-        <div className="w-12 h-12 border-4 border-neon-cyan border-t-transparent rounded-full animate-spin"></div>
+      <div className="page-loading">
+        <div className="page-loading-spinner" />
       </div>
     );
   }
@@ -102,14 +102,16 @@ export default function SkillsPage() {
     : 0;
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "2rem", paddingBottom: "3rem" }}>
-      {/* Header */}
-      <div className="responsive-flex-header">
+    <div className="page-shell animate-fade-in-up">
+      <div className="page-header">
         <div>
-          <h1 className="text-3xl font-extrabold tracking-tight">
-            Skill Gap <span className="bg-gradient-to-r from-neon-cyan to-neon-indigo bg-clip-text text-transparent">Matrix</span>
+          <h1 className="page-title">
+            Skill Gap{" "}
+            <span className="bg-gradient-to-r from-neon-cyan to-neon-indigo bg-clip-text text-transparent">
+              Matrix
+            </span>
           </h1>
-          <p className="text-gray-400 mt-1 text-sm">
+          <p className="page-subtitle">
             Map out your current competencies and identify missing requirements
           </p>
         </div>
@@ -117,28 +119,17 @@ export default function SkillsPage() {
         <button
           onClick={handleRunAIAnalysis}
           disabled={analyzing}
-          className="glass-btn flex items-center gap-2 text-sm disabled:opacity-60"
+          className="glass-btn flex items-center gap-2 text-sm disabled:opacity-60 shrink-0 self-start md:self-auto"
         >
           <Sparkles className={`w-4 h-4 ${analyzing ? "animate-spin" : ""}`} />
           {analyzing ? "Analyzing Gaps..." : "Run AI Skill Analysis"}
         </button>
       </div>
 
-      {/* Alert logs */}
-      {error && (
-        <div className="p-4 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
-          {error}
-        </div>
-      )}
+      {error && <div className="alert alert-error">{error}</div>}
+      {successMsg && <div className="alert alert-success">{successMsg}</div>}
 
-      {successMsg && (
-        <div className="p-4 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm">
-          {successMsg}
-        </div>
-      )}
-
-      {/* Progress tracker */}
-      <div className="glass-card p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+      <div className="glass-card card-body flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-xl bg-neon-cyan/10 border border-neon-cyan/20 flex items-center justify-center shrink-0">
             <TrendingUp className="w-4.5 h-4.5 text-neon-cyan" />
@@ -166,7 +157,7 @@ export default function SkillsPage() {
         <div className="responsive-grid-3">
 
           {/* Mastered Column */}
-          <div className="glass-card p-5 space-y-4">
+          <div className="glass-card card-body space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-neon-cyan shadow-[0_0_6px_rgba(0,242,254,0.7)]" />
@@ -196,7 +187,7 @@ export default function SkillsPage() {
           </div>
 
           {/* Learning Column */}
-          <div className="glass-card p-5 space-y-4">
+          <div className="glass-card card-body space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-neon-purple shadow-[0_0_6px_rgba(139,92,246,0.7)]" />
@@ -226,7 +217,7 @@ export default function SkillsPage() {
           </div>
 
           {/* Skill Gaps Column */}
-          <div className="glass-card p-5 space-y-4">
+          <div className="glass-card card-body space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-red-400 shadow-[0_0_6px_rgba(248,113,113,0.7)]" />
@@ -258,7 +249,7 @@ export default function SkillsPage() {
         </div>
       ) : (
         /* Empty State */
-        <div className="text-center py-16 glass-card border border-white/5 space-y-4 max-w-xl mx-auto">
+        <div className="empty-state glass-card max-w-xl mx-auto w-full">
           <Brain className="w-12 h-12 text-gray-600 mx-auto" />
           <h3 className="text-lg font-bold text-white">Initialize Skill Assessment</h3>
           <p className="text-sm text-gray-400">
