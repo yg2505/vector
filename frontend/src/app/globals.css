@@ -1,0 +1,421 @@
+@import "tailwindcss";
+
+:root {
+  --background: #07060b;
+  --foreground: #f3f4f6;
+  
+  --card-bg: rgba(15, 11, 25, 0.55);
+  --card-border: rgba(255, 255, 255, 0.07);
+  --card-glow-cyan: rgba(6, 182, 212, 0.15);
+  --card-glow-indigo: rgba(99, 102, 241, 0.15);
+
+  /* Spacing scale */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+}
+
+@theme {
+  --color-neon-cyan: #00f2fe;
+  --color-neon-blue: #00c6ff;
+  --color-neon-indigo: #6366f1;
+  --color-neon-purple: #8b5cf6;
+  
+  --color-dark-bg: #07060b;
+  --color-dark-card: rgba(15, 11, 25, 0.55);
+  --color-dark-border: rgba(255, 255, 255, 0.07);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #07060b;
+  color: #f3f4f6;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 45%),
+    radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.08) 0px, transparent 45%),
+    radial-gradient(at 50% 50%, rgba(139, 92, 246, 0.04) 0px, transparent 60%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Glassmorphism Components ───────────────────────────────── */
+
+.glass-card {
+  background: rgba(15, 11, 25, 0.52);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.25rem;
+}
+
+.glass-card-glow-cyan {
+  background: rgba(15, 11, 25, 0.52);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(6, 182, 212, 0.22);
+  border-radius: 1.25rem;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45), 0 0 20px rgba(6, 182, 212, 0.12);
+}
+
+.glass-card-glow-indigo {
+  background: rgba(15, 11, 25, 0.52);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(99, 102, 241, 0.22);
+  border-radius: 1.25rem;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45), 0 0 20px rgba(99, 102, 241, 0.12);
+}
+
+/* ─── Form Elements ──────────────────────────────────────────── */
+
+.glass-input {
+  display: block;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-radius: 0.625rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.glass-input::placeholder {
+  color: rgba(156, 163, 175, 0.5);
+}
+
+.glass-input:focus {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: #00f2fe;
+  box-shadow: 0 0 0 3px rgba(0, 242, 254, 0.12);
+  outline: none;
+}
+
+/* ─── Buttons ────────────────────────────────────────────────── */
+
+.glass-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.01em;
+  border-radius: 0.625rem;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.28);
+  white-space: nowrap;
+}
+
+.glass-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.45), 0 0 18px rgba(139, 92, 246, 0.25);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.glass-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.glass-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  color: #e5e7eb;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.01em;
+  border-radius: 0.625rem;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.glass-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+}
+
+/* ─── Section Labels ─────────────────────────────────────────── */
+
+.section-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(156, 163, 175, 0.75);
+}
+
+/* ─── Stat Pill Badges ───────────────────────────────────────── */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.6rem;
+  border-radius: 99px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.badge-cyan {
+  background: rgba(0, 242, 254, 0.1);
+  border: 1px solid rgba(0, 242, 254, 0.2);
+  color: #00f2fe;
+}
+
+.badge-indigo {
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  color: #6366f1;
+}
+
+.badge-red {
+  background: rgba(248, 113, 113, 0.1);
+  border: 1px solid rgba(248, 113, 113, 0.2);
+  color: #f87171;
+}
+
+/* ─── Divider ────────────────────────────────────────────────── */
+
+.divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.07);
+  margin: 0;
+}
+
+/* ─── Page Container ─────────────────────────────────────── */
+
+/* Reusable centred content column.
+   Used by the NavigationWrapper shell — individual pages
+   can also apply this class when they render outside the shell. */
+.page-container {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+/* ─── Section spacing ────────────────────────────────────── */
+
+/* Consistent vertical gap between major page sections */
+.section-gap {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;    /* 32 px between sections */
+}
+
+/* Consistent vertical gap between card / form elements */
+.element-gap {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem; /* 20 px between elements */
+}
+
+
+/* ─── Scrollbars ─────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ─── Animations ─────────────────────────────────────────────── */
+
+@keyframes neon-pulse {
+  0%, 100% {
+    box-shadow: 0 0 6px rgba(0, 242, 254, 0.2), inset 0 0 6px rgba(0, 242, 254, 0.08);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(0, 242, 254, 0.5), inset 0 0 12px rgba(0, 242, 254, 0.18);
+  }
+}
+
+.neon-active {
+  animation: neon-pulse 2s infinite;
+  border-color: rgba(0, 242, 254, 0.45);
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.35s ease forwards;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease forwards;
+}
+
+/* ─── Responsive Layout Utilities (Purging-Immune) ───────────────── */
+
+/* Responsive Flex Header (column on mobile, row on tablet/desktop) */
+.responsive-flex-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+@media (min-width: 768px) {
+  .responsive-flex-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+/* Responsive 2-column Grid (1 col on mobile, 2 cols on tablet/desktop) */
+.responsive-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+@media (min-width: 768px) {
+  .responsive-grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Responsive 3-column Grid (1 col on mobile, 3 cols on tablet/desktop) */
+.responsive-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+@media (min-width: 768px) {
+  .responsive-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Responsive 4-column Grid (1 col on mobile, 2 cols on tablet, 4 cols on desktop) */
+.responsive-grid-4 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+@media (min-width: 640px) {
+  .responsive-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .responsive-grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Dashboard Radar Chart + Upcoming Tasks split (2fr and 3fr ratio) */
+.dashboard-grid-split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+@media (min-width: 1024px) {
+  .dashboard-grid-split {
+    grid-template-columns: 2fr 3fr;
+  }
+}
+
+/* Resume Audit split (1fr and 2fr ratio) */
+.resume-grid-split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+@media (min-width: 1024px) {
+  .resume-grid-split {
+    grid-template-columns: 1fr 2fr;
+  }
+}
+
+/* Career Coach Page Container */
+.coach-container {
+  height: calc(100vh - 80px);
+  display: flex;
+  gap: 1.25rem;
+  flex-direction: column;
+}
+@media (min-width: 768px) {
+  .coach-container {
+    flex-direction: row;
+  }
+}
+
+/* Career Coach Sidebar Container */
+.coach-sidebar {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+@media (min-width: 768px) {
+  .coach-sidebar {
+    width: 272px;
+    min-width: 272px;
+    flex-shrink: 0;
+  }
+}
+
+/* Career Coach Dynamic Context Sidebar Hide/Show */
+.sidebar-context {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .sidebar-context {
+    display: block;
+  }
+}
+

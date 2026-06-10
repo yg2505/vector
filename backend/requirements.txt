@@ -1,0 +1,16 @@
+fastapi
+uvicorn
+sqlalchemy
+pydantic
+pydantic-settings
+python-jose[cryptography]
+bcrypt
+python-multipart
+pypdf
+chromadb
+google-generativeai
+langchain
+langchain-community
+langchain-google-genai
+python-dotenv
+email-validator
