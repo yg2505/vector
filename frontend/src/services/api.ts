@@ -98,5 +98,5 @@ export const api = {
   // Career Coach
   getChatHistory: () => request<any[]>("/coach/history"),
   sendChatMessage: (content: string) => 
-    request<any>("/coach/chat", { method: "POST", body: JSON.stringify({ content }) }),
+    request<any>("/coach/chat", { method: "POST", body: JSON.stringify({ role:"user",content }) }),
 };

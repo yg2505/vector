@@ -1,6 +1,6 @@
 import os
 import json
-import google.generativeai as genai
+from groq import Groq
 from ..config import settings
 
 # Predefined skill maps for target roles
@@ -45,23 +45,26 @@ class AIService:
         self.api_key = settings.GROQ_API_KEY
         self.has_key = len(self.api_key.strip()) > 0
         if self.has_key:
-            genai.configure(api_key=self.api_key)
-            self.model = genai.GenerativeModel("gemini-1.5-flash")
+            self.client = Groq(api_key=self.api_key)
         else:
-            self.model = None
+            self.client = None
             print("WARNING: GROQ_API_KEY is not set. Using local mock fallbacks for AI services.")
 
-    def _call_gemini_json(self, prompt: str) -> dict:
+    def _call_groq_json(self, prompt: str) -> dict:
         """Helper to invoke Groq requesting JSON output."""
-        if not self.has_key or not self.model:
+        if not self.has_key or not self.client:
             raise ValueError("Groq API key is not configured.")
         
         try:
-            response = self.model.generate_content(
-                prompt,
-                generation_config={"response_mime_type": "application/json"}
-            )
-            return json.loads(response.text)
+            response = self.client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=[
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0,
+            response_format={"type": "json_object"}
+        )
+            return json.loads(response.choices[0].message.content)
         except Exception as e:
             print(f"Groq API Error: {str(e)}")
             raise e
@@ -97,7 +100,7 @@ class AIService:
         }}
         """
         try:
-            return self._call_gemini_json(prompt)
+            return self._call_groq_json(prompt)
         except Exception:
             return self._mock_resume_analysis(resume_text, target_role)
 
@@ -130,7 +133,7 @@ class AIService:
         }}
         """
         try:
-            return self._call_gemini_json(prompt)
+            return self._call_groq_json(prompt)
         except Exception:
             return self._mock_skill_gap_analysis(resume_text, target_role)
 
@@ -166,7 +169,7 @@ class AIService:
         Generate exactly {timeline_months * 4} weeks of milestones (4 weeks per month).
         """
         try:
-            res = self._call_gemini_json(prompt)
+            res = self._call_groq_json(prompt)
             if isinstance(res, list):
                 return res
             elif isinstance(res, dict) and "roadmap" in res:
@@ -177,7 +180,7 @@ class AIService:
 
     def chat_coach(self, message: str, user_role: str, user_goal: str, missing_skills: list, upcoming_tasks: list, vector_context: list, chat_history: list) -> str:
         """Interact with the Career Coach. Returns a text response."""
-        if not self.has_key or not self.model:
+        if not self.has_key or not self.client:
             return self._mock_chat_response(message, user_role, upcoming_tasks)
 
         # Build context prompt
@@ -218,8 +221,17 @@ class AIService:
         Coach:
         """
         try:
-            response = self.model.generate_content(prompt)
-            return response.text
+            response = self.client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+            temperature=0.7,
+            )
+            return response.choices[0].message.content
         except Exception as e:
             return f"Hi! I'm Vector, your career coach. I noticed you asked: '{message}'. Let's look at how we can help you work towards your goal of becoming a {user_role}. Currently, your upcoming roadmap focuses on mastering missing skills like {missing_skills_str}."
 
