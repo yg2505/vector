@@ -1,10 +1,11 @@
-import chromadb
+import chromadb, os
 from ..config import settings
 
 class VectorService:
     def __init__(self):
+        CHROMA_PATH = os.path.abspath(settings.CHROMA_DB_PATH)
         # Create persistent local directory for ChromaDB
-        self.client = chromadb.PersistentClient(path=settings.CHROMA_DB_PATH)
+        self.client = chromadb.PersistentClient(path=CHROMA_PATH)
         # Get or create collection for Vector search
         self.collection = self.client.get_or_create_collection(name="user_knowledge")
 
@@ -13,11 +14,22 @@ class VectorService:
         Add a document to the vector database.
         Metadata must contain at least 'user_id' for access control.
         """
-        self.collection.upsert(
-            documents=[text],
-            metadatas=[metadata],
-            ids=[doc_id]
-        )
+        try:
+            print("Adding document to Chroma...")
+            print("Doc ID:", doc_id)
+
+            self.collection.upsert(
+                documents=[text],
+                metadatas=[metadata],
+                ids=[doc_id]
+            )
+
+            print("Document added successfully")
+
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
+            raise e
 
     def query_similar(self, query_text: str, user_id: int, limit: int = 3):
         """
