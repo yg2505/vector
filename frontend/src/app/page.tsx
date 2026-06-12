@@ -27,7 +27,7 @@ export default function LandingPage() {
       <div className="absolute bottom-1/4 left-1/3 w-60 h-60 bg-neon-purple/20 blur-[80px] rounded-full pointer-events-none"></div>
 
       {/* Hero Header */}
-      <div className="text-center max-w-3xl space-y-5 z-10">
+      <div className="text-center relative max-w-3xl space-y-5 z-10">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-neon-cyan font-semibold tracking-wider uppercase">
           <Sparkles className="w-3.5 h-3.5 animate-spin" />
           Next-Gen AI Career Coaching Platform

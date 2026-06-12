@@ -32,13 +32,13 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-dark-bg relative overflow-hidden">
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 pt-8 pb-10 bg-dark-bg relative overflow-hidden">
       {/* Background glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-neon-cyan/8 blur-[120px] rounded-full pointer-events-none" />
 
       <div className="w-full max-w-sm z-10 animate-fade-in-up">
         {/* Card */}
-        <div className="glass-card p-8 space-y-7 shadow-2xl">
+        <div className="glass-card card-body-lg element-gap shadow-2xl">
           {/* Logo + heading */}
           <div className="flex flex-col items-center gap-4 text-center">
             <div className="w-11 h-11 rounded-2xl bg-neon-cyan/10 border border-neon-cyan/20 flex items-center justify-center">
@@ -76,7 +76,7 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
-                  className="glass-input pl-10"
+                  className="glass-input glass-input-with-icon"
                   autoComplete="email"
                 />
               </div>
@@ -94,7 +94,7 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="glass-input pl-10"
+                  className="glass-input glass-input-with-icon"
                   autoComplete="current-password"
                 />
               </div>

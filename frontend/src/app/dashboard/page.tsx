@@ -453,9 +453,11 @@ export default function DashboardPage() {
                     return (
                       <div
                         key={task.id}
+                        className="card-body rounded-xl transition-all"
                         style={{
-                          display: "flex", alignItems: "flex-start", gap: "0.75rem",
-                          padding: "0.875rem", borderRadius: 12, transition: "all 0.2s",
+                          display: "flex",
+                          alignItems: "flex-start",
+                          gap: "0.75rem",
                           border: done ? "1px solid rgba(16,185,129,0.2)" : "1px solid rgba(255,255,255,0.06)",
                           background: done ? "rgba(16,185,129,0.04)" : "rgba(255,255,255,0.02)",
                         }}
@@ -494,7 +496,7 @@ export default function DashboardPage() {
                     );
                   })
                 ) : (
-                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "2.5rem 0", gap: "0.75rem", textAlign: "center" }}>
+                  <div className="empty-state">
                     <Clock style={{ width: 32, height: 32, color: "#4b5563" }} />
                     <p style={{ fontSize: "0.875rem", fontWeight: 600, color: "#9ca3af" }}>No upcoming milestones</p>
                     <p style={{ fontSize: "0.75rem", color: "#4b5563" }}>

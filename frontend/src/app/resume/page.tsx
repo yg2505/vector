@@ -182,7 +182,7 @@ export default function ResumePage() {
                 <Clock className="w-4 h-4 text-white/40" />
                 Audit history
               </h3>
-              <div className="flex flex-col gap-1.5">
+              <div className="flex flex-col gap-2">
                 {history.map((h) => {
                   const sc = h.ats_score;
                   const badgeColor =
@@ -191,16 +191,17 @@ export default function ResumePage() {
                     : "text-red-400 bg-red-500/10 border-red-500/20";
                   return (
                     <div
-                      key={h.id} onClick={() => loadPastAnalysis(h)}
-                      className="flex items-center justify-between px-3 py-2 rounded-lg bg-white/5 border border-white/5 hover:border-white/10 cursor-pointer transition-all"
+                      key={h.id}
+                      onClick={() => loadPastAnalysis(h)}
+                      className="flex items-center justify-between gap-2 p-3 rounded-lg bg-white/[0.03] border border-white/[0.06] hover:border-white/10 cursor-pointer transition-all"
                     >
-                      <div className="truncate pr-3">
+                      <div className="min-w-0 flex-1">
                         <p className="text-sm font-medium text-white truncate">{h.file_name}</p>
-                        <p className="text-[11px] text-gray-500 mt-0.5">
+                        <p className="text-[11px] text-gray-500 mt-2">
                           {new Date(h.created_at).toLocaleDateString()}
                         </p>
                       </div>
-                      <span className={`text-xs font-bold px-2 py-0.5 rounded-full border ${badgeColor}`}>
+                      <span className={`text-xs font-bold px-5 py-3 rounded-full border shrink-0 ${badgeColor}`}>
                         {sc}
                       </span>
                     </div>
@@ -225,7 +226,7 @@ export default function ResumePage() {
                     Your resume passes most ATS filters but is missing keywords critical for your target role.
                   </p>
                   <div className="flex flex-wrap gap-2 mt-3">
-                    <span className="text-[11px] font-semibold px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    <span className="inline-flex items-center text-[11px] font-semibold px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                       {results.strengths.length} strengths
                     </span>
                     <span className="text-[11px] font-semibold px-3 py-1 rounded-full bg-red-500/10 text-red-400 border border-red-500/20">
@@ -323,7 +324,7 @@ export default function ResumePage() {
               )}
             </>
           ) : (
-            <div className="glass-card flex flex-col items-center justify-center text-center gap-4 py-16">
+            <div className="empty-state glass-card">
               <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
                 <FileText className="w-8 h-8 text-gray-600" />
               </div>
