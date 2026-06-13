@@ -1,13 +1,25 @@
-import chromadb, os
-from ..config import settings
+import os
 
+os.environ["HF_HOME"] = "./model_cache"
+os.environ["TRANSFORMERS_CACHE"] = "./model_cache"
+
+import chromadb
+from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
+from ..config import settings
 class VectorService:
     def __init__(self):
-        CHROMA_PATH = os.path.abspath(settings.CHROMA_DB_PATH)
-        # Create persistent local directory for ChromaDB
-        self.client = chromadb.PersistentClient(path=CHROMA_PATH)
-        # Get or create collection for Vector search
-        self.collection = self.client.get_or_create_collection(name="user_knowledge")
+        embedding_function = SentenceTransformerEmbeddingFunction(
+            model_name="all-MiniLM-L6-v2"
+        )
+
+        self.client = chromadb.PersistentClient(
+            path=settings.CHROMA_DB_PATH
+        )
+
+        self.collection = self.client.get_or_create_collection(
+            name="user_knowledge",
+            embedding_function=embedding_function
+        )
 
     def add_document(self, doc_id: str, text: str, metadata: dict):
         """

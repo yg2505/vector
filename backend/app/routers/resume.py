@@ -53,15 +53,15 @@ async def analyze_resume(
         db.refresh(new_resume)
         
         # 4. Insert into local Vector DB (ChromaDB) for RAG context
-        # vector_service.add_document(
-        #     doc_id=f"resume_{current_user.id}_{new_resume.id}",
-        #     text=extracted_text,
-        #     metadata={
-        #         "user_id": current_user.id,
-        #         "type": "resume",
-        #         "file_name": file.filename
-        #     }
-        # )
+        vector_service.add_document(
+            doc_id=f"resume_{current_user.id}_{new_resume.id}",
+            text=extracted_text,
+            metadata={
+                "user_id": current_user.id,
+                "type": "resume",
+                "file_name": file.filename
+            }
+        )
         
         # 5. Automatically sync skill gaps
         gaps_analysis = ai_service.analyze_skill_gaps(extracted_text, target_role)
