@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 1440  # 24 hours
     
     # Database
-    DATABASE_URL: str = os.getenv("DATABASE_URL", "sqlite:///./sql_app.db")
+    DATABASE_URL: str = os.getenv("DATABASE_URL", "postgresql://neondb_owner:npg_ILpwtzX47fyB@ep-ancient-lab-ao3o05rg.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require")
     
     # AI Keys
     GROQ_API_KEY: str = os.getenv("GROQ_API_KEY", "")
