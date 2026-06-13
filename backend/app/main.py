@@ -21,6 +21,8 @@ origins = [
     "http://localhost:3001",
     "http://127.0.0.1:3000",
     "http://127.0.0.1:3001",
+    "https://vector-indol-seven.vercel.app/",
+    "https://vector-nw70cemmj-yg2505s-projects.vercel.app/"
 ]
 
 app.add_middleware(
