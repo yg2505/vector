@@ -68,4 +68,13 @@ class VectorService:
             # Handle empty db queries gracefully
             return []
 
-vector_service = VectorService()
+vector_service = None
+
+def get_vector_service():
+    global vector_service
+
+    if vector_service is None:
+        vector_service = VectorService()
+
+    return vector_service
+

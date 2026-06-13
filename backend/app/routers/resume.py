@@ -9,7 +9,7 @@ from ..schemas import ResumeResponse
 from ..auth import get_current_user
 from ..services.pdf_service import extract_text_from_pdf
 from ..services.ai_service import ai_service
-from ..services.vector_service import vector_service
+from ..services.vector_service import get_vector_service
 
 router = APIRouter(prefix="/resume", tags=["resume"])
 
@@ -53,15 +53,15 @@ async def analyze_resume(
         db.refresh(new_resume)
         
         # 4. Insert into local Vector DB (ChromaDB) for RAG context
-        vector_service.add_document(
-            doc_id=f"resume_{current_user.id}_{new_resume.id}",
-            text=extracted_text,
-            metadata={
-                "user_id": current_user.id,
-                "type": "resume",
-                "file_name": file.filename
-            }
-        )
+        # get_vector_service.add_document(
+        #     doc_id=f"resume_{current_user.id}_{new_resume.id}",
+        #     text=extracted_text,
+        #     metadata={
+        #         "user_id": current_user.id,
+        #         "type": "resume",
+        #         "file_name": file.filename
+        #     }
+        # )
         
         # 5. Automatically sync skill gaps
         gaps_analysis = ai_service.analyze_skill_gaps(extracted_text, target_role)
