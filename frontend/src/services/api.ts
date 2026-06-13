@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8000/api";
+const BASE_URL = "https://vector-nezk.onrender.com";
 
 function getHeaders(isMultipart = false): HeadersInit {
   const headers: HeadersInit = {};
